@@ -8,7 +8,7 @@ export const getV1Routes = () => {
         res.status(200).json({ text: "Hello!!! V1 requests" });
     });
 
-    router.get("/login", loginHandler);
+    router.post("/login", loginHandler);
     // router.post("/register", registerHandler);
 
     return router;
