@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(logger);
 
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://excel-sheet-generator.netlify.app"],
   methods: "GET,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204,
