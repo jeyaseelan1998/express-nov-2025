@@ -85,3 +85,31 @@ export async function loginHandler(req, res) {
             .send({ status: 500, message: error.message, stack: error.stack });
     }
 }
+
+export async function profileHandler(req, res) {
+    try {
+        const { token } = req.body;
+        if (!token) {
+            res
+                .status(400)
+                .send({ status: 400, message: "Token is required." });
+        } else {
+            const { email } = jwt.verify(token, JWT_SECRET);
+
+            if (!email) {
+                res
+                    .status(401)
+                    .send({ status: 401, message: "Token is invalid." });
+            } else {
+                const data = await User.findOne({ email }, { password: 0 });
+                res
+                    .status(200)
+                    .send({ data });
+            }
+        }
+    } catch (error) {
+        res
+            .status(500)
+            .send({ status: 500, message: error.message, stack: error.stack });
+    }
+}
