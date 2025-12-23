@@ -4,6 +4,7 @@ import {
     profileHandler,
     // registerHandler,
 } from "./Handlers/Auth.js";
+import { createBillEntryHandler, getBillEntryHandler } from "./Handlers/BillEntry.js";
 
 export const getV1Routes = () => {
     const router = Router();
@@ -15,6 +16,9 @@ export const getV1Routes = () => {
     router.post("/login", loginHandler);
     // router.post("/register", registerHandler);
     router.post("/profile", profileHandler);
+    
+    router.post("/bill-entry", createBillEntryHandler);
+    router.get("/bill-entry", getBillEntryHandler);
 
     return router;
 }
