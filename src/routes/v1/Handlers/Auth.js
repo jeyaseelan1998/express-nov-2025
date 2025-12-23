@@ -8,7 +8,7 @@ import { JWT_SECRET } from "../../../utils/config.js";
 export async function registerHandler(req, res) {
     try {
         const { name, email, password, role } = req.body;
-        
+
         const existingUser = await User.findOne({ email });
         if (existingUser !== null) {
             res
@@ -23,7 +23,7 @@ export async function registerHandler(req, res) {
                 const roleDocument = await Role.findOne({
                     role,
                 });
-                
+
                 const hash = await bcrypt.hash(password, 10);
                 const userData = await User.create({
                     name,
@@ -67,15 +67,15 @@ export async function loginHandler(req, res) {
                     const jwtToken = jwt.sign({ email }, JWT_SECRET);
                     res
                         .status(200)
-                        .cookie(
-                            "token",
-                            jwtToken,
-                            {
-                                secure: true,
-                                expires: new Date(Date.now() + 24 * 3600000) // cookie will be removed after 24 hours
-                            }
-                        )
-                        .send({ success: true });
+                        // .cookie(
+                        //     "token",
+                        //     jwtToken,
+                        //     {
+                        //         secure: true,
+                        //         expires: new Date(Date.now() + 24 * 3600000) // cookie will be removed after 24 hours
+                        //     }
+                        // )
+                        .send({ success: true, token: jwtToken });
                 }
             }
         }
