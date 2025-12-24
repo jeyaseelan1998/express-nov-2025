@@ -35,9 +35,16 @@ export async function createBillEntryHandler(req, res) {
 }
 
 export async function getBillEntryHandler(req, res) {
-    try {
+    const { order = '' } = req.query || {};
 
-        const list = await BillEntry.find();
+    const sort = {};
+    const orders = order.split(',').forEach(i => {
+        const [key, value] = i.split('_');
+        sort[key] = value === "desc" ? -1 : 1
+    });
+
+    try {
+        const list = await BillEntry.find().sort(sort);
         res
             .status(200)
             .send({ status: 200, list });
