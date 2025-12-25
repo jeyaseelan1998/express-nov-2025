@@ -61,6 +61,8 @@ export async function getBillEntryHandler(req, res) {
 }
 
 export async function updateBillEntryHandler(req, res) {
+    const { bill_no: billNo } = req.params;
+
     const {
         services,
         engineer_name,
@@ -73,7 +75,7 @@ export async function updateBillEntryHandler(req, res) {
     } = req.body || {};
 
     try {
-        const billEntry = await BillEntry.updateOne({ bill_no }, {
+        const billEntry = await BillEntry.updateOne({ bill_no: billNo }, {
             services,
             engineer_name,
             bill_no,
@@ -86,7 +88,23 @@ export async function updateBillEntryHandler(req, res) {
 
         res
             .status(200)
-            .send({ status: 200, billEntry });
+            .send({ status: 200, data: billEntry });
+    } catch (error) {
+        res
+            .status(500)
+            .send({ status: 500, message: error.message, stack: error.stack });
+    }
+}
+
+export async function deleteBillEntryHandler(req, res) {
+    const { bill_no } = req.params;
+
+    try {
+        const billEntry = await BillEntry.deleteOne({ bill_no });
+
+        res
+            .status(200)
+            .send({ status: 200, data: billEntry });
     } catch (error) {
         res
             .status(500)

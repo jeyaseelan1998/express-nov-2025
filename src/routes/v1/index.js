@@ -4,7 +4,7 @@ import {
     profileHandler,
     // registerHandler,
 } from "./Handlers/Auth.js";
-import { createBillEntryHandler, getBillEntryHandler, updateBillEntryHandler } from "./Handlers/BillEntry.js";
+import { createBillEntryHandler, deleteBillEntryHandler, getBillEntryHandler, updateBillEntryHandler } from "./Handlers/BillEntry.js";
 
 export const getV1Routes = () => {
     const router = Router();
@@ -20,6 +20,7 @@ export const getV1Routes = () => {
     router.post("/bill-entry", createBillEntryHandler);
     router.get("/bill-entry", getBillEntryHandler);
     router.patch("/bill-entry/:bill_no", updateBillEntryHandler);
+    router.delete("/bill-entry/:bill_no", deleteBillEntryHandler);
 
     return router;
 }
