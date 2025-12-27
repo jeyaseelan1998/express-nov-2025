@@ -67,6 +67,10 @@ const BillEntrySchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    deleted: {
+        type: Number,
+        default: 0
+    },
     updatedAt: {
         type: Number,
         default: Date.now

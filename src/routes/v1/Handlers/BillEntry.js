@@ -71,7 +71,8 @@ export async function updateBillEntryHandler(req, res) {
         phone_number,
         call_type,
         notes,
-        date
+        date,
+        deleted
     } = req.body || {};
 
     try {
@@ -83,7 +84,8 @@ export async function updateBillEntryHandler(req, res) {
             phone_number,
             call_type,
             notes,
-            date
+            date,
+            deleted
         });
 
         res
