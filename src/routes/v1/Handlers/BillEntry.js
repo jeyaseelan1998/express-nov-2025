@@ -35,7 +35,7 @@ export async function createBillEntryHandler(req, res) {
 }
 
 export async function getBillEntryHandler(req, res) {
-    const { order = '', bill_no } = req.query || {};
+    const { order = '', bill_no, limit = 10, offset = 0, deleted = false } = req.query || {};
 
     const sort = {};
     const orders = order && order.split(',').forEach(i => {
@@ -44,12 +44,11 @@ export async function getBillEntryHandler(req, res) {
     });
 
     const filter = {};
-    if (bill_no) {
-        filter.bill_no = bill_no;
-    }
+    if (bill_no) filter.bill_no = bill_no;
+    if (deleted !== false) filter.deleted = deleted;
 
     try {
-        const list = await BillEntry.find(filter).sort(sort);
+        const list = await BillEntry.find(filter).sort(sort).limit(limit).skip(offset);
         res
             .status(200)
             .send({ status: 200, list });
@@ -62,6 +61,15 @@ export async function getBillEntryHandler(req, res) {
 
 export async function updateBillEntryHandler(req, res) {
     const { bill_no: billNo } = req.params;
+    console.log({ billNo }, "=============");
+
+    if (isNaN(billNo)) {
+        res
+            .status(400)
+            .send({ status: 400, message: "Check Network call" });
+
+        return;
+    }
 
     const {
         services,
