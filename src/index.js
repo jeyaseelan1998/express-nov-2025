@@ -24,7 +24,4 @@ app.use(cors({
 app.use('/v1', getV1Routes());
 // app.use('/admin', getAdminRoutes());
 
-app.listen(PORT, async () => {
-  await connectDatabase();
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+export default app;

@@ -61,7 +61,6 @@ export async function getBillEntryHandler(req, res) {
 
 export async function updateBillEntryHandler(req, res) {
     const { bill_no: billNo } = req.params;
-    console.log({ billNo }, "=============");
 
     if (isNaN(billNo)) {
         res

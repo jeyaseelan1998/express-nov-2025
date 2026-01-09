@@ -3,7 +3,7 @@
   "name": "express-mongodb-sample",
   "version": "1.0.0",
   "description": "A learning project",
-  "main": "src/index.js",
+  "main": "./netlify/functions/index.js",
   "type": "module",
   "scripts": {
     "test": "export DEBUG=1 && nodemon .",
