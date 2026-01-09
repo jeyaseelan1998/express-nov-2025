@@ -1,4 +1,5 @@
 import express from 'express';
+import serverless from "serverless-http";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import { PORT } from './utils/config.js';
@@ -24,4 +25,9 @@ app.use(cors({
 app.use('/v1', getV1Routes());
 // app.use('/admin', getAdminRoutes());
 
-export default app;
+app.listen(PORT, async () => {
+  await connectDatabase();
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+module.exports.handler = serverless(app);
